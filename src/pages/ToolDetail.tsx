@@ -78,6 +78,8 @@ const ToolDetail = () => {
               <h2 className="font-heading text-lg font-semibold text-foreground">About</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{tool.description}</p>
             </div>
+
+            <ReviewSection toolId={tool.id} />
           </div>
 
           {/* Sidebar info */}
