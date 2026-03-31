@@ -9,12 +9,19 @@ import { Input } from "@/components/ui/input";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+
+  const handleCategorySelect = (cat: string | null, sub: string | null) => {
+    setSelectedCategory(cat);
+    setSelectedSubcategory(sub);
+  };
 
   const filtered = tools.filter((t) => {
     const matchesCategory = !selectedCategory || t.categories.some((c) => c.primary === selectedCategory);
+    const matchesSub = !selectedSubcategory || t.categories.some((c) => c.secondary === selectedSubcategory);
     const matchesSearch = !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.tagline.toLowerCase().includes(search.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSub && matchesSearch;
   });
 
   const featured = tools.filter((t) => t.featured);
