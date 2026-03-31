@@ -6,6 +6,7 @@ import StarRating from "@/components/StarRating";
 import { tools } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ReviewSection from "@/components/ReviewSection";
 
 const ToolDetail = () => {
   const { id } = useParams();
