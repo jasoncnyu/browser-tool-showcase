@@ -6,6 +6,7 @@ import StarRating from "@/components/StarRating";
 import { tools } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ReviewSection from "@/components/ReviewSection";
 
 const ToolDetail = () => {
   const { id } = useParams();
@@ -77,6 +78,8 @@ const ToolDetail = () => {
               <h2 className="font-heading text-lg font-semibold text-foreground">About</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{tool.description}</p>
             </div>
+
+            <ReviewSection toolId={tool.id} />
           </div>
 
           {/* Sidebar info */}
