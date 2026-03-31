@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { categories } from "@/data/mockData";
-import { X, Plus, AlertTriangle, Upload, HelpCircle } from "lucide-react";
+import { X, Plus, AlertTriangle, Upload, HelpCircle, ImagePlus } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Submit = () => {
@@ -198,9 +198,11 @@ const Submit = () => {
           {/* App icon */}
           <div>
             <Label>App Icon <span className="text-xs text-muted-foreground">(optional)</span></Label>
-            <div className="mt-2 flex h-20 w-20 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition hover:border-primary hover:bg-accent/50">
+            <label className="mt-2 flex h-24 w-24 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/30 transition hover:border-primary hover:bg-accent/50">
               <Upload className="h-5 w-5 text-muted-foreground" />
-            </div>
+              <span className="text-[10px] text-muted-foreground">Drop or click</span>
+              <input type="file" accept="image/*" className="hidden" />
+            </label>
           </div>
 
           {/* Screenshots */}
@@ -208,14 +210,19 @@ const Submit = () => {
             <Label>Screenshots <span className="text-xs text-muted-foreground">(1–5 required)</span></Label>
             <div className="mt-2 grid grid-cols-3 gap-3 sm:grid-cols-5">
               {[...Array(5)].map((_, i) => (
-                <div
+                <label
                   key={i}
-                  className="flex aspect-video cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition hover:border-primary hover:bg-accent/50"
+                  className="flex aspect-video cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/30 transition hover:border-primary hover:bg-accent/50"
                 >
-                  <Plus className="h-4 w-4 text-muted-foreground" />
-                </div>
+                  <ImagePlus className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground">
+                    {i === 0 ? "Required" : "Optional"}
+                  </span>
+                  <input type="file" accept="image/*" className="hidden" />
+                </label>
               ))}
             </div>
+            <p className="mt-1.5 text-xs text-muted-foreground">Drag & drop or click to upload. PNG, JPG, WebP supported.</p>
           </div>
 
           {/* Links */}
