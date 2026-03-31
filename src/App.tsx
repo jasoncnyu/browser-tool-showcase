@@ -23,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/tool/:id" element={<ToolDetail />} />
           <Route path="/submit" element={<Submit />} />
+          <Route path="/submit/backlink" element={<SubmitBacklink />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
