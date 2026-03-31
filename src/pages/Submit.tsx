@@ -6,7 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { categories } from "@/data/mockData";
-import { X, Plus, AlertTriangle, Upload } from "lucide-react";
+import { X, Plus, AlertTriangle, Upload, HelpCircle } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Submit = () => {
   const [selectedCategories, setSelectedCategories] = useState<{ primary: string; secondary: string }[]>([]);
@@ -46,7 +47,19 @@ const Submit = () => {
               <Input id="siteName" placeholder="e.g. Squoosh" className="mt-1.5" />
             </div>
             <div>
-              <Label htmlFor="toolName">Tool / Feature Name</Label>
+              <div className="flex items-center gap-1.5">
+                <Label htmlFor="toolName">Tool / Feature Name <span className="text-xs text-muted-foreground">(optional)</span></Label>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[220px] text-xs">
+                      Only fill this in if the site offers multiple tools.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <Input id="toolName" placeholder="e.g. Image Compressor" className="mt-1.5" />
             </div>
           </div>
