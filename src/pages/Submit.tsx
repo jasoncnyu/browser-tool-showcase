@@ -6,7 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { categories } from "@/data/mockData";
-import { X, Plus, AlertTriangle, Upload } from "lucide-react";
+import { X, Plus, AlertTriangle, Upload, HelpCircle } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Submit = () => {
   const [selectedCategories, setSelectedCategories] = useState<{ primary: string; secondary: string }[]>([]);
