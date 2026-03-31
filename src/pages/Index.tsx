@@ -9,12 +9,19 @@ import { Input } from "@/components/ui/input";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+
+  const handleCategorySelect = (cat: string | null, sub: string | null) => {
+    setSelectedCategory(cat);
+    setSelectedSubcategory(sub);
+  };
 
   const filtered = tools.filter((t) => {
     const matchesCategory = !selectedCategory || t.categories.some((c) => c.primary === selectedCategory);
+    const matchesSub = !selectedSubcategory || t.categories.some((c) => c.secondary === selectedSubcategory);
     const matchesSearch = !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.tagline.toLowerCase().includes(search.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSub && matchesSearch;
   });
 
   const featured = tools.filter((t) => t.featured);
@@ -95,35 +102,37 @@ const Index = () => {
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="font-heading text-2xl font-bold text-foreground">
-              {selectedCategory ? `${selectedCategory} Tools` : "All Tools"}
+              {selectedSubcategory ? selectedSubcategory : selectedCategory ? `${selectedCategory} Tools` : "All Tools"}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">{filtered.length} tools found</p>
           </div>
         </div>
 
-        <div className="mt-4">
-          <CategoryFilter selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
-        </div>
+        <div className="mt-4 flex gap-8">
+          <CategoryFilter selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} onSelect={handleCategorySelect} />
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((tool) => (
-            <motion.div
-              key={tool.id}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ToolCard tool={tool} />
-            </motion.div>
-          ))}
-        </div>
+          <div className="flex-1">
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {filtered.map((tool) => (
+                <motion.div
+                  key={tool.id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <ToolCard tool={tool} />
+                </motion.div>
+              ))}
+            </div>
 
-        {filtered.length === 0 && (
-          <div className="py-20 text-center text-muted-foreground">
-            No tools found. Try a different search or category.
+            {filtered.length === 0 && (
+              <div className="py-20 text-center text-muted-foreground">
+                No tools found. Try a different search or category.
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </section>
     </Layout>
   );
