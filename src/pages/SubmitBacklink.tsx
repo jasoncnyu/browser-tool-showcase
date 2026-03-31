@@ -157,29 +157,12 @@ const SubmitBacklink = () => {
               </div>
             </div>
 
-            {/* Backlink Confirmation */}
-            <div className="rounded-xl border bg-card p-6">
-              <div className="flex items-start gap-3">
-                <Checkbox
-                  id="backlink-confirm"
-                  checked={backlinkConfirmed}
-                  onCheckedChange={(checked) => setBacklinkConfirmed(checked === true)}
-                  className="mt-0.5"
-                />
-                <label htmlFor="backlink-confirm" className="cursor-pointer text-sm leading-relaxed text-foreground">
-                  I confirm that I have placed the backlink badge on my website's footer or an appropriate location.
-                </label>
-              </div>
-              <p className="mt-3 rounded-md bg-primary/5 p-3 text-xs text-muted-foreground">
-                🔗 Once we verify the backlink on your site, your listing will receive a <strong className="text-foreground">dofollow</strong> link from LocalTools.
-              </p>
-            </div>
-
-            {/* Verify Backlink Button */}
+            {/* Verify Backlink */}
             <Button
               size="lg"
+              variant="outline"
               className="w-full gap-2"
-              disabled={!backlinkConfirmed || verifying}
+              disabled={verifying}
               onClick={handleVerifyBacklink}
             >
               {verifying ? (
@@ -233,15 +216,31 @@ const SubmitBacklink = () => {
                         Try Again
                       </Button>
                     )}
-                    {verifyResult === "success" && (
-                      <Button size="sm" className="mt-3">
-                        Complete Submission
-                      </Button>
-                    )}
                   </div>
                 </div>
               </div>
             )}
+
+            {/* Confirmation & Complete Submission */}
+            <div className="rounded-xl border bg-card p-6">
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id="backlink-confirm"
+                  checked={backlinkConfirmed}
+                  onCheckedChange={(checked) => setBacklinkConfirmed(checked === true)}
+                  className="mt-0.5"
+                />
+                <label htmlFor="backlink-confirm" className="cursor-pointer text-sm leading-relaxed text-foreground">
+                  I confirm that I have placed the backlink badge on my website's footer or an appropriate location.
+                </label>
+              </div>
+              <p className="mt-3 rounded-md bg-primary/5 p-3 text-xs text-muted-foreground">
+                🔗 Once we verify the backlink on your site, your listing will receive a <strong className="text-foreground">dofollow</strong> link from LocalTools.
+              </p>
+              <Button size="lg" className="mt-4 w-full">
+                Complete Submission
+              </Button>
+            </div>
           </div>
         )}
       </div>
