@@ -243,8 +243,8 @@ const Submit = () => {
             <Input id="languages" placeholder="e.g. English, Korean, Japanese" className="mt-1.5" />
           </div>
 
-          <Button type="submit" size="lg" className="w-full">
-            Submit Tool for Review
+          <Button type="submit" size="lg" className="w-full" onClick={() => window.location.href = '/submit/backlink'}>
+            Submit Tool
           </Button>
         </form>
       </div>
