@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import ToolDetail from "./pages/ToolDetail.tsx";
 import Submit from "./pages/Submit.tsx";
+import SubmitBacklink from "./pages/SubmitBacklink.tsx";
 import Login from "./pages/Login.tsx";
 import About from "./pages/About.tsx";
 import NotFound from "./pages/NotFound.tsx";
