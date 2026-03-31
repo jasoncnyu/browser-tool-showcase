@@ -130,6 +130,7 @@ const Index = () => {
               <div className="py-20 text-center text-muted-foreground">
                 No tools found. Try a different search or category.
               </div>
+            )}
           </div>
         </div>
       </section>
