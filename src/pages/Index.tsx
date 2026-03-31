@@ -130,18 +130,8 @@ const Index = () => {
               <div className="py-20 text-center text-muted-foreground">
                 No tools found. Try a different search or category.
               </div>
-            )}
-            >
-              <ToolCard tool={tool} />
-            </motion.div>
-          ))}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="py-20 text-center text-muted-foreground">
-            No tools found. Try a different search or category.
           </div>
-        )}
+        </div>
       </section>
     </Layout>
   );
