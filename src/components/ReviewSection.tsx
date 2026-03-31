@@ -20,12 +20,27 @@ interface ReviewSectionProps {
 
 const STORAGE_KEY = (id: string) => `localtools-reviews-${id}`;
 
+const mockReviews: Record<string, Review[]> = {
+  squoosh: [
+    { id: "m1", author: "David Kim", rating: 5, comment: "Best image compressor I've used. The side-by-side comparison is incredibly helpful, and the fact that everything runs in the browser means my images never leave my device.", date: "Mar 15, 2026", helpful: 12 },
+    { id: "m2", author: "Sarah Chen", rating: 4, comment: "Great tool for quick compression. Only wish it had a batch mode for processing multiple images at once without the CLI.", date: "Feb 28, 2026", helpful: 5 },
+    { id: "m3", author: "Anonymous", rating: 5, comment: "AVIF support is a game changer. Reduced my website's image payload by 60% with barely any visible quality loss.", date: "Jan 10, 2026", helpful: 8 },
+  ],
+  excalidraw: [
+    { id: "m4", author: "Alex Rivera", rating: 5, comment: "Perfect for quick diagrams and brainstorming. The hand-drawn style makes everything look approachable and less intimidating in presentations.", date: "Mar 20, 2026", helpful: 15 },
+    { id: "m5", author: "Mina Park", rating: 5, comment: "Real-time collaboration works flawlessly. We use this daily for architecture discussions. Export to SVG is super clean.", date: "Mar 1, 2026", helpful: 9 },
+  ],
+};
+
 const loadReviews = (toolId: string): Review[] => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY(toolId));
-    return raw ? JSON.parse(raw) : [];
+    const saved: Review[] = raw ? JSON.parse(raw) : [];
+    const defaults = mockReviews[toolId] || [];
+    const defaultIds = new Set(defaults.map((r) => r.id));
+    return [...saved.filter((r) => !defaultIds.has(r.id)), ...defaults];
   } catch {
-    return [];
+    return mockReviews[toolId] || [];
   }
 };
 
