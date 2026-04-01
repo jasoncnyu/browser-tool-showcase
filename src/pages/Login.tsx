@@ -1,11 +1,25 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return;
+    signIn(email, password, isSignUp ? name : undefined);
+    navigate("/");
+  };
 
   return (
     <Layout>
@@ -19,28 +33,28 @@ const Login = () => {
               {isSignUp ? "Create an account" : "Welcome back"}
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {isSignUp ? "Join the Local Tools community" : "Log in to your account"}
+              {isSignUp ? "Join the Local Tools community" : "Sign in to your account"}
             </p>
           </div>
 
-          <form className="mt-8 space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
             {isSignUp && (
               <div>
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" className="mt-1.5" />
+                <Input id="name" placeholder="Your name" className="mt-1.5" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
             )}
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="you@example.com" className="mt-1.5" />
+              <Input id="email" type="email" placeholder="you@example.com" className="mt-1.5" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="••••••••" className="mt-1.5" />
+              <Input id="password" type="password" placeholder="••••••••" className="mt-1.5" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <Button type="submit" className="w-full">
-              {isSignUp ? "Sign up" : "Log in"}
+              {isSignUp ? "Sign up" : "Sign in"}
             </Button>
           </form>
 
@@ -50,7 +64,7 @@ const Login = () => {
               onClick={() => setIsSignUp(!isSignUp)}
               className="font-medium text-primary hover:underline"
             >
-              {isSignUp ? "Log in" : "Sign up"}
+              {isSignUp ? "Sign in" : "Sign up"}
             </button>
           </p>
         </div>
