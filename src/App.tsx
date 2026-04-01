@@ -10,6 +10,7 @@ import Submit from "./pages/Submit.tsx";
 import SubmitBacklink from "./pages/SubmitBacklink.tsx";
 import Login from "./pages/Login.tsx";
 import About from "./pages/About.tsx";
+import MyPage from "./pages/MyPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
