@@ -9,6 +9,7 @@ interface AuthContextType {
   user: User | null;
   signIn: (email: string, password: string, name?: string) => void;
   signOut: () => void;
+  updateName: (name: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -34,8 +35,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
+  const updateName = (name: string) => {
+    if (!user) return;
+    const updated = { ...user, name };
+    localStorage.setItem("localtools-user", JSON.stringify(updated));
+    setUser(updated);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, signIn, signOut, updateName }}>
       {children}
     </AuthContext.Provider>
   );

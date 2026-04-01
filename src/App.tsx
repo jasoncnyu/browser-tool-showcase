@@ -10,6 +10,7 @@ import Submit from "./pages/Submit.tsx";
 import SubmitBacklink from "./pages/SubmitBacklink.tsx";
 import Login from "./pages/Login.tsx";
 import About from "./pages/About.tsx";
+import MyPage from "./pages/MyPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/submit/backlink" element={<SubmitBacklink />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
