@@ -114,7 +114,9 @@ const Index = () => {
         </div>
 
         <div className="mt-4 flex gap-8">
-          <CategoryFilter selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} onSelect={handleCategorySelect} />
+          <div className="hidden md:block">
+            <CategoryFilter selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} onSelect={handleCategorySelect} />
+          </div>
 
           <div className="flex-1">
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
