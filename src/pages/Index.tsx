@@ -108,6 +108,11 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Mobile category filter */}
+        <div className="mt-4 md:hidden">
+          <CategoryFilter selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} onSelect={handleCategorySelect} />
+        </div>
+
         <div className="mt-4 flex gap-8">
           <CategoryFilter selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} onSelect={handleCategorySelect} />
 
