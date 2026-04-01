@@ -1,10 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, X, LogOut, User } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const avatarUrl = user
+    ? `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(user.email)}`
+    : "";
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
@@ -30,12 +49,32 @@ const Header = () => {
           <Button variant="ghost" size="icon" className="text-muted-foreground">
             <Globe className="h-4 w-4" />
           </Button>
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Log in</Button>
-          </Link>
-          <Link to="/login">
-            <Button size="sm">Sign up</Button>
-          </Link>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="rounded-full ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                  <Avatar className="h-8 w-8 cursor-pointer">
+                    <AvatarImage src={avatarUrl} alt={user.name} />
+                    <AvatarFallback className="text-xs">{user.name[0]?.toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuItem onClick={() => navigate("/mypage")}>
+                  <User className="mr-2 h-4 w-4" />
+                  MyPage
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to="/login">
+              <Button size="sm">Sign in</Button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -57,9 +96,20 @@ const Header = () => {
             <Link to="/submit" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
               Submit a Tool
             </Link>
-            <Link to="/login" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
-              Log in / Sign up
-            </Link>
+            {user ? (
+              <>
+                <Link to="/mypage" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
+                  MyPage
+                </Link>
+                <button onClick={() => { handleSignOut(); setMobileOpen(false); }} className="text-left text-sm font-medium text-muted-foreground">
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
+                Sign in
+              </Link>
+            )}
           </nav>
         </div>
       )}
