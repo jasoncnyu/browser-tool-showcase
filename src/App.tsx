@@ -29,6 +29,7 @@ const App = () => (
             <Route path="/submit/backlink" element={<SubmitBacklink />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
