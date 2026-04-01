@@ -9,6 +9,7 @@ interface AuthContextType {
   user: User | null;
   signIn: (email: string, password: string, name?: string) => void;
   signOut: () => void;
+  updateName: (name: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
